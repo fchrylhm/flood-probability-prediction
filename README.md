@@ -1,145 +1,141 @@
-# 🌊 Flood Probability Prediction — Data Science Competition (Preliminary Round)
+# Flood Probability Prediction
 
-> **Team:** es_kelapa_lovers  
-> **Institution:** Universitas Singaperbangsa Karawang (UNSIKA)  
-> **Competition:** Data Science Preliminary Round  
-> **Task:** Regression & Clustering — Predicting Flood Probability from Environmental Risk Factors
+**Flood Probability Prediction** adalah proyek data science yang bertujuan memprediksi probabilitas banjir berdasarkan 20 faktor risiko lingkungan dan infrastruktur. Proyek ini dikembangkan sebagai submission pada babak Preliminary Data Science Competition.
 
 ---
 
-## 📌 Project Overview
+## Deskripsi Proyek
 
-This project was submitted as part of a **Data Science Competition Preliminary Round**. The goal is to predict the probability of flooding (`FloodProbability`) based on 20 environmental and infrastructural risk features, using a combination of regression models and unsupervised clustering.
-
-The notebook covers the full data science pipeline:
-- Exploratory Data Analysis (EDA)
-- Feature Engineering (Total Risk Index / TRI)
-- Model Training & Evaluation (Linear Regression, Random Forest, XGBoost)
-- K-Means Clustering with PCA visualization
-- Visual Risk Intelligence Dashboard
+Proyek ini mencakup pipeline data science secara lengkap, mulai dari eksplorasi data, rekayasa fitur, pelatihan model regresi, hingga pengelompokan data menggunakan K-Means. Hasil akhir divisualisasikan melalui Visual Risk Intelligence Dashboard.
 
 ---
 
-## 📂 Repository Structure
+## Struktur Repositori
 
-```
-├── Notebook_Preliminary_es_kelapa_lovers.ipynb   # Main analysis notebook
-├── requirements.txt                               # Python dependencies
-├── .gitignore                                     # Files excluded from version control
-└── README.md                                      # Project documentation (this file)
-```
+| File                                          | Keterangan                                  |
+| --------------------------------------------- | ------------------------------------------- |
+| `Notebook_Preliminary_es_kelapa_lovers.ipynb` | Notebook utama berisi seluruh analisis      |
+| `requirements.txt`                            | Daftar dependensi Python                    |
+| `.gitignore`                                  | File yang dikecualikan dari version control |
+| `README.md`                                   | Dokumentasi proyek                          |
 
-> **Note:** The dataset file `flood.csv` is not included in this repository as it is provided by the competition organizer.
-
----
-
-## 🧠 Methodology
-
-### 1. Data Loading & Validation
-- Dataset loaded from `flood.csv`
-- All 20 features confirmed to be within the valid range `[0, 10]`
-- No outliers detected — distribution is approximately symmetric
-
-### 2. Feature Engineering
-- **Total Risk Index (TRI):** Engineered feature computed as the sum of all 20 risk factors per record
-- TRI threshold bands defined: Low (< 70), Moderate (70–110), High (110–150), Critical (> 150)
-
-### 3. Exploratory Data Analysis
-| Figure | Description |
-|--------|-------------|
-| Fig. 1 | Correlation Heatmap — 20 Features vs. FloodProbability |
-| Fig. 2 | Distribution of FloodProbability |
-| Fig. 3 | TRI Distribution with Visual Risk Threshold Bands |
-
-### 4. Model Training
-Stratified train/test split (80/20) was used, stratified by `RiskCategory` (Low / Moderate / High / Critical).
-
-| Model | Type |
-|-------|------|
-| Linear Regression (OLS) | Baseline regression |
-| Random Forest Regressor | Ensemble (n=100 trees) |
-| XGBoost Regressor | Gradient boosting |
-
-### 5. Evaluation & Insight Extraction
-| Figure | Description |
-|--------|-------------|
-| Fig. 4 | Predicted vs. Actual FloodProbability (all 3 models) |
-| Fig. 7 | OLS β Coefficient Analysis |
-| Fig. 8 | Top 5 Dominant Features (XGBoost & Random Forest) |
-| Fig. 9 | Full Feature Importance Ranking — All 20 Attributes |
-
-### 6. Unsupervised Clustering
-- K-Means clustering with k=3 (Elbow Method used to validate)
-- Clusters labeled based on TRI centroid: **Aman** (Safe), **Waspada** (Caution), **Bahaya** (Danger)
-- PCA used to project clusters into 2D for visualization
-
-| Figure | Description |
-|--------|-------------|
-| Fig. 6 | K-Means Clustering (k=3) — 2D PCA Projection |
-| Fig. 10 | Visual Risk Intelligence Dashboard |
+Dataset `flood.csv` tidak disertakan dalam repositori karena merupakan aset milik penyelenggara lomba.
 
 ---
 
-## 🛠️ Tech Stack
+## Metodologi
 
-| Category | Libraries |
-|----------|-----------|
-| Data Manipulation | `pandas`, `numpy` |
-| Visualization | `matplotlib`, `seaborn` |
-| Machine Learning | `scikit-learn` |
-| Gradient Boosting | `xgboost` |
+### 1. Pemuatan dan Validasi Data
 
----
+- Dataset dimuat dari `flood.csv`
+- Seluruh 20 fitur dikonfirmasi berada dalam rentang valid `[0, 10]`
+- Tidak ditemukan outlier — distribusi bersifat simetris
 
-## ⚙️ Setup & Usage
+### 2. Rekayasa Fitur
 
-### 1. Clone the Repository
-```bash
-git clone https://github.com/<your-username>/<repo-name>.git
-cd <repo-name>
-```
+- **Total Risk Index (TRI)** — Fitur baru hasil penjumlahan seluruh 20 faktor risiko per baris data
+- Batas kategori TRI: Rendah (< 70), Sedang (70–110), Tinggi (110–150), Kritis (> 150)
 
-### 2. Create a Virtual Environment (Recommended)
-```bash
-python -m venv venv
-source venv/bin/activate        # Linux/macOS
-venv\Scripts\activate           # Windows
-```
+### 3. Eksplorasi Data (EDA)
 
-### 3. Install Dependencies
-```bash
-pip install -r requirements.txt
-```
+| Gambar   | Keterangan                                         |
+| -------- | -------------------------------------------------- |
+| Gambar 1 | Correlation Heatmap — 20 Fitur vs FloodProbability |
+| Gambar 2 | Distribusi FloodProbability                        |
+| Gambar 3 | Distribusi TRI dengan Band Threshold Risiko        |
 
-### 4. Add the Dataset
-Place the `flood.csv` file (provided by the competition organizer) into the root of the project directory.
+### 4. Pelatihan Model
 
-### 5. Run the Notebook
-```bash
-jupyter notebook Notebook_Preliminary_es_kelapa_lovers.ipynb
-```
+Pembagian data menggunakan stratified split 80/20 berdasarkan kategori risiko (Low, Moderate, High, Critical).
 
----
+| Model                   | Jenis                |
+| ----------------------- | -------------------- |
+| Linear Regression (OLS) | Baseline regresi     |
+| Random Forest Regressor | Ensemble (100 pohon) |
+| XGBoost Regressor       | Gradient boosting    |
 
-## 📊 Key Findings
+### 5. Evaluasi dan Analisis Fitur
 
-- **XGBoost** achieved the highest R² score among the three models, confirming its suitability for this regression task.
-- All 20 features contribute roughly equally to flood probability, reflecting the dataset's symmetric design — consistent with the near-uniform OLS β coefficients (~1/200 each).
-- K-Means clustering successfully segmented the data into three interpretable risk zones, validated by TRI centroid values.
-- The **Visual Risk Intelligence Dashboard** (Fig. 10) shows strong alignment between XGBoost predictions and actual risk category distributions.
+| Gambar   | Keterangan                                     |
+| -------- | ---------------------------------------------- |
+| Gambar 4 | Predicted vs Actual FloodProbability (3 model) |
+| Gambar 7 | Analisis Koefisien OLS                         |
+| Gambar 8 | 5 Fitur Dominan (XGBoost dan Random Forest)    |
+| Gambar 9 | Peringkat Seluruh 20 Fitur                     |
 
----
+### 6. Clustering Tanpa Supervisi
 
-## 👥 Team
+- K-Means dengan k=3, dipilih menggunakan Elbow Method
+- Cluster dilabeli berdasarkan centroid TRI: **Aman**, **Waspada**, **Bahaya**
+- PCA digunakan untuk memproyeksikan cluster ke ruang 2D
 
-| Name | Role |
-|------|------|
-| *(Team es_kelapa_lovers)* | Data Analysis, Feature Engineering, Modeling |
-
-> *Universitas Singaperbangsa Karawang (UNSIKA)*
+| Gambar    | Keterangan                                 |
+| --------- | ------------------------------------------ |
+| Gambar 6  | K-Means Clustering (k=3) — Proyeksi PCA 2D |
+| Gambar 10 | Visual Risk Intelligence Dashboard         |
 
 ---
 
-## 📄 License
+## Teknologi yang Digunakan
 
-This project is submitted for academic competition purposes. Dataset rights belong to the competition organizer.
+| Kategori          | Library                 |
+| ----------------- | ----------------------- |
+| Manipulasi Data   | `pandas`, `numpy`       |
+| Visualisasi       | `matplotlib`, `seaborn` |
+| Machine Learning  | `scikit-learn`          |
+| Gradient Boosting | `xgboost`               |
+
+---
+
+## Cara Menjalankan
+
+1. Clone repository ini:
+
+   ```bash
+   git clone https://github.com/<username>/<nama-repo>.git
+   cd <nama-repo>
+   ```
+
+2. Buat virtual environment dan aktifkan:
+
+   ```bash
+   python -m venv venv
+   source venv/bin/activate        # Linux/macOS
+   venv\Scripts\activate           # Windows
+   ```
+
+3. Install dependensi:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Letakkan file `flood.csv` di direktori utama proyek.
+
+5. Jalankan notebook:
+   ```bash
+   jupyter notebook Notebook_Preliminary_es_kelapa_lovers.ipynb
+   ```
+
+---
+
+## Temuan Utama
+
+- XGBoost menghasilkan nilai R² tertinggi di antara ketiga model.
+- Seluruh 20 fitur berkontribusi secara merata terhadap probabilitas banjir, konsisten dengan koefisien OLS yang mendekati 1/200 per fitur.
+- K-Means berhasil membagi data ke dalam tiga zona risiko yang interpretatif dan tervalidasi oleh nilai centroid TRI.
+- Visual Risk Intelligence Dashboard menunjukkan keselarasan yang kuat antara prediksi XGBoost dan distribusi kategori risiko aktual.
+
+---
+
+## Tim
+
+| Nama             | Institusi                                    |
+| ---------------- | -------------------------------------------- |
+| es_kelapa_lovers | Universitas Singaperbangsa Karawang (UNSIKA) |
+
+---
+
+## Lisensi
+
+Proyek ini dikembangkan untuk keperluan kompetisi akademik. Hak atas dataset sepenuhnya milik penyelenggara lomba.
